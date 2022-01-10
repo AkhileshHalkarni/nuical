@@ -17,7 +17,7 @@ public class Holiday {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String holidayId;
+	private Long holidayId;
 
 	private String holidayName;
 	private String name;
@@ -47,7 +47,7 @@ public class Holiday {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Holiday(String holidayId, String holidayName, String name, String date, String day, String description,
+	public Holiday(Long holidayId, String holidayName, String name, String date, String day, String description,
 			String note) {
 		
 		this.holidayId = holidayId;
@@ -59,11 +59,11 @@ public class Holiday {
 		this.note = note;
 	}
 
-	public String getHolidayId() {
+	public Long getHolidayId() {
 		return holidayId;
 	}
 
-	public void setHolidayId(String holidayId) {
+	public void setHolidayId(Long holidayId) {
 		this.holidayId = holidayId;
 	}
 

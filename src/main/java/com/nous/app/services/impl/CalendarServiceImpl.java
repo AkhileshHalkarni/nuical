@@ -1,15 +1,17 @@
-package com.nous.app.services;
+package com.nous.app.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nous.app.model.Holiday;
 import com.nous.app.repo.CalendarRepository;
+import com.nous.app.services.CalendarService;
 
 @Service
-public class CalendarServiceImplements implements CalendarService {
+public class CalendarServiceImpl implements CalendarService {
 	
 	@Autowired
 	CalendarRepository calendarRepository;
@@ -48,16 +50,12 @@ public class CalendarServiceImplements implements CalendarService {
 		return calendarRepository.findByName(name);
 	}
 
-	@Override
-	public String deleteHoliday(String name) {
-		calendarRepository.deleteByName(name);
-		return "Deleted successfully..!!";
-	}
+	
 
 	@Override
-	public boolean isHolidayExists(String name) {
-		List<Holiday> calendar = calendarRepository.findByName(name);
-		Holiday cal = calendar.get(0);
+	public boolean isHolidayExists(Long holidayId) {
+		Optional<Holiday> calendar = calendarRepository.findById(holidayId);
+		Holiday cal = calendar.get();
 		if(cal == null)
 		{
 			return true;
@@ -83,6 +81,12 @@ public class CalendarServiceImplements implements CalendarService {
 	public List<Holiday> getOptionalHolidays() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String deleteHoliday(Long holidayId) {
+		calendarRepository.deleteById(holidayId);
+		return "Deleted Successfully";
 	}
 
 	
