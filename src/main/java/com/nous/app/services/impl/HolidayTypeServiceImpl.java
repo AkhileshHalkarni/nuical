@@ -1,4 +1,4 @@
-package com.nous.app.services;
+package com.nous.app.services.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.nous.app.model.Holiday;
 import com.nous.app.model.Region;
 import com.nous.app.repo.HolidayTypeRepository;
+import com.nous.app.services.HolidayTypeService;
 import com.nous.app.model.HolidayTypes;
 
 @Service

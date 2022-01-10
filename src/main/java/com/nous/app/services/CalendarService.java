@@ -19,9 +19,9 @@ public interface CalendarService {
 
 	public List<Holiday> findByName(String name);
 
-	public String deleteHoliday(String name);
+	public String deleteHoliday(Long holidayId);
 
-	public boolean isHolidayExists(String name);
+	public boolean isHolidayExists(Long holidayId);
 
 	public List<Holiday> getByName(String name);
 

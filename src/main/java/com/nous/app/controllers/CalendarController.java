@@ -31,15 +31,6 @@ public class CalendarController {
 	@Autowired
 	CalendarService calendarService;
 
-//	@GetMapping
-//	public ResponseEntity<List<Calendar>> getHolidays()
-//	{
-//		ResponseEntity <List<Calendar>> responseEntity = null;
-//		List<Calendar> calendar = calendarService.getHolidays();
-//		responseEntity = new ResponseEntity<List<Calendar>>(calendar, HttpStatus.OK);
-//		return responseEntity;
-//	}
-
 	@PostMapping
 	public ResponseEntity<String> saveHoliday(@RequestBody Holiday calendar) {
 		ResponseEntity<String> responseEntity = null;
@@ -48,33 +39,7 @@ public class CalendarController {
 		return responseEntity;
 	}
 
-	@PutMapping
-	public ResponseEntity<String> updateHoliday(@RequestBody Holiday calendar) {
-		ResponseEntity<String> responseEntity = null;
-		System.out.println(calendar);
-		String success = null;
-		if (calendarService.isHolidayExists(calendar.getName())) {
-			success = calendarService.updateHoliday(calendar);
-			if (success.equals("Updated successfully..!!")) {
-				responseEntity = new ResponseEntity<String>(success, HttpStatus.OK); // 200
-			} else {
-				responseEntity = new ResponseEntity<String>(success, HttpStatus.NOT_ACCEPTABLE); // 406
-			}
-		} else {
-			responseEntity = new ResponseEntity<String>(success, HttpStatus.NO_CONTENT); // 204
-			success = "Holiday for " + calendar.getName() + " does not exists...";
-		}
-		return responseEntity;
-	}
-
 	// code to delete
-	@DeleteMapping("/{name}")
-	public ResponseEntity<String> deleteHoliday(@PathVariable("name") String name) {
-		ResponseEntity<String> responseEntity = null;
-		calendarService.deleteHoliday(name);
-		responseEntity = new ResponseEntity<String>("deleted successfully", HttpStatus.NO_CONTENT); // 204
-		return responseEntity;
-	}
 
 	@GetMapping("/ByName/{name}")
 	public ResponseEntity<List<Holiday>> getHolidays(@PathVariable("name") String name) {
@@ -114,9 +79,9 @@ public class CalendarController {
 	public ResponseEntity<List<Holiday>> getRegion(@PathVariable("regionName") String regionName) {
 		ResponseEntity<List<Holiday>> responseEntity = null;
 		List<Holiday> calendar = new ArrayList<Holiday>();
-		
-		//calendar = calendarService.getregionByName(regionName);
-		
+
+		// calendar = calendarService.getregionByName(regionName);
+
 		if (calendar.size() == 0) {
 			responseEntity = new ResponseEntity<List<Holiday>>(calendar, HttpStatus.NO_CONTENT); // 200
 		} else {
@@ -124,27 +89,67 @@ public class CalendarController {
 		}
 		return responseEntity;
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<Holiday>> getRegions(@RequestParam(required = false) String regionName){
+	public ResponseEntity<List<Holiday>> getRegions(@RequestParam(required = false) String regionName) {
 		ResponseEntity<List<Holiday>> responseEntity = null;
 		List<Holiday> calendar = new ArrayList<Holiday>();
-		
+
 		if (regionName == null) {
 			System.out.println(regionName);
 			calendar = calendarService.getHolidays();
 		} else {
 			System.out.println(regionName);
-			//calendar = calendarService.getregionByName(regionName);
+			// calendar = calendarService.getregionByName(regionName);
 		}
-		
-		
+
 		if (calendar.size() == 0) {
 			responseEntity = new ResponseEntity<List<Holiday>>(calendar, HttpStatus.NO_CONTENT); // 200
 		} else {
 			responseEntity = new ResponseEntity<List<Holiday>>(calendar, HttpStatus.OK); // 204
 		}
 		return responseEntity;
+	}
+
+
+
+	@PutMapping
+	public ResponseEntity<String> updateCalender(@RequestBody Holiday calender) {
+		System.out.println(calender);
+		ResponseEntity<String> responseEntity = null;
+		String message = null;
+		if (calendarService.isHolidayExists(calender.getHolidayId())) {
+			message = calendarService.updateHoliday(calender);
+			if (message.equals("Calender updated succcessfully")) {
+				responseEntity = new ResponseEntity<String>(message, HttpStatus.OK);
+			} else {
+				responseEntity = new ResponseEntity<String>(message, HttpStatus.NOT_ACCEPTABLE);
+			}
+
+		} else {
+			responseEntity = new ResponseEntity<String>(message, HttpStatus.NO_CONTENT);
+			message = "Holiday with id " + calender.getHolidayId() + "does not exist";
+		}
+		return responseEntity;
+	}
+
+	@DeleteMapping("/{holidayId}")
+	public ResponseEntity<String> deleteCalender(@PathVariable("holidayId") Long holidayId) {
+		ResponseEntity<String> responseEntity = null;
+		String message = null;
+		if (calendarService.isHolidayExists(holidayId)) {
+			message = calendarService.deleteHoliday(holidayId);
+			responseEntity = new ResponseEntity<String>(message, HttpStatus.OK);
+		} else {
+			responseEntity = new ResponseEntity<String>(message, HttpStatus.NO_CONTENT);
+			message = "Holiday with id " + holidayId + "does not exist";
+		}
+		return responseEntity;
+	}
+
+	@GetMapping("/{slno}")
+	public List<Holiday> isCalenExists(@PathVariable("holidayId") int holidayId) {
+		return calendarService.getHolidays();
 	}
 
 }
