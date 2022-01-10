@@ -5,25 +5,34 @@ package com.nous.app.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.nous.app.model.Holiday;
 
-import com.nous.app.dao.CalendarDAO;
-import com.nous.app.services.dto.HolidayBean;
 
-/**
- * @author mohanavelp
- *
- */
-@Service
-public class CalendarService {
 
-	@Autowired
-	CalendarDAO calendarDAO;
+public interface CalendarService {
+
+	public List<Holiday> getHolidays();
+
+	public String saveHoliday(Holiday calendar);
 	
-	public List<HolidayBean> fetchHolidays() {
-		List<HolidayBean> holidays = calendarDAO.fetchHolidays();
-		return holidays;
-	}
+	public String updateHoliday(Holiday calendar);
+
+	public List<Holiday> findByName(String name);
+
+	public String deleteHoliday(String name);
+
+	public boolean isHolidayExists(String name);
+
+	public List<Holiday> getByName(String name);
+
+	public List<Holiday> getGeneralHolidays();
 	
+	public List<Holiday> getOptionalHolidays();
+	
+	
+
+
+	
+
+
 }

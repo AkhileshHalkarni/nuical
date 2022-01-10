@@ -32,4 +32,7 @@ public class CalendarDAO {
 		bean.setDescription(shortDescription);
 		return bean;
 	}
+
+	
+	
 }

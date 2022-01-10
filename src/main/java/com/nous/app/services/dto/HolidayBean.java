@@ -14,6 +14,7 @@ public class HolidayBean {
 	private String name;
 	private Date date;
 	private String description;
+	
 	/**
 	 * @return the name
 	 */
