@@ -8,11 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.context.annotation.Lazy;
-
 @Entity
 @Table(name = "Holiday")
-
 public class Holiday {
 
 	@Id
@@ -25,11 +22,11 @@ public class Holiday {
 	private String day;
 	private String description;
 	private String note;
-	@Lazy
+	
 	@ManyToOne
 	@JoinColumn(name = "FK_regionId", nullable = false)
 	private Region region;
-    @Lazy 
+    
 	@ManyToOne
 	@JoinColumn(name = "FK_holidayTypeId", nullable = false)
 	private HolidayTypes holidayTypes;

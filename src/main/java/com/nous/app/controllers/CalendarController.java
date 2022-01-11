@@ -2,6 +2,7 @@ package com.nous.app.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nous.app.model.Holiday;
-import com.nous.app.model.Region;
 import com.nous.app.services.CalendarService;
-import com.nous.app.services.RegionService;
 
 @RestController
 @RequestMapping("holidays")
@@ -89,20 +87,27 @@ public class CalendarController {
 		}
 		return responseEntity;
 	}
-
-	@GetMapping
-	public ResponseEntity<List<Holiday>> getRegions(@RequestParam(required = false) String regionName) {
+	
+	@GetMapping("/region/{regionId}")
+	public ResponseEntity<List<Holiday>> getRegion(@PathVariable("regionId") Long regionId) {
 		ResponseEntity<List<Holiday>> responseEntity = null;
 		List<Holiday> calendar = new ArrayList<Holiday>();
 
-		if (regionName == null) {
-			System.out.println(regionName);
-			calendar = calendarService.getHolidays();
-		} else {
-			System.out.println(regionName);
-			// calendar = calendarService.getregionByName(regionName);
-		}
+		calendar = calendarService.findByRegionId(regionId);
 
+		if (calendar.size() == 0) {
+			responseEntity = new ResponseEntity<List<Holiday>>(calendar, HttpStatus.NO_CONTENT); // 200
+		} else {
+			responseEntity = new ResponseEntity<List<Holiday>>(calendar, HttpStatus.OK); // 204
+		}
+		return responseEntity;
+	}
+
+	@GetMapping
+	public ResponseEntity<List<Holiday>> getRegions() {
+		ResponseEntity<List<Holiday>> responseEntity = null;
+		List<Holiday> calendar = new ArrayList<Holiday>();
+		calendar = calendarService.getHolidays();
 		if (calendar.size() == 0) {
 			responseEntity = new ResponseEntity<List<Holiday>>(calendar, HttpStatus.NO_CONTENT); // 200
 		} else {
