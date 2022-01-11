@@ -30,5 +30,9 @@ public interface CalendarService {
 	public List<Holiday> getOptionalHolidays();
 
 	public List<Holiday> findByRegionId(Long regionId);
+	
+
+	public List<Holiday> findByTypeId(Long typeId);
+
 
 }
