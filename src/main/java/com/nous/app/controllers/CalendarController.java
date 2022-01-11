@@ -31,16 +31,6 @@ public class CalendarController {
 	@Autowired
 	CalendarService calendarService;
 
-	@PostMapping
-	public ResponseEntity<String> saveHoliday(@RequestBody Holiday calendar) {
-		ResponseEntity<String> responseEntity = null;
-		String holiday = calendarService.saveHoliday(calendar);
-		responseEntity = new ResponseEntity<String>(holiday, HttpStatus.OK);
-		return responseEntity;
-	}
-
-	// code to delete
-
 	@GetMapping("/ByName/{name}")
 	public ResponseEntity<List<Holiday>> getHolidays(@PathVariable("name") String name) {
 		ResponseEntity<List<Holiday>> responseEntity = null;
@@ -111,15 +101,13 @@ public class CalendarController {
 		return responseEntity;
 	}
 
-
-
 	@PutMapping
-	public ResponseEntity<String> updateCalender(@RequestBody Holiday calender) {
-		System.out.println(calender);
+	public ResponseEntity<String> updateCalender(@RequestBody Holiday calendar) {
+		System.out.println(calendar);
 		ResponseEntity<String> responseEntity = null;
 		String message = null;
-		if (calendarService.isHolidayExists(calender.getHolidayId())) {
-			message = calendarService.updateHoliday(calender);
+		if (calendarService.isHolidayExists(calendar.getHolidayId())) {
+			message = calendarService.updateHoliday(calendar);
 			if (message.equals("Calender updated succcessfully")) {
 				responseEntity = new ResponseEntity<String>(message, HttpStatus.OK);
 			} else {
@@ -128,7 +116,7 @@ public class CalendarController {
 
 		} else {
 			responseEntity = new ResponseEntity<String>(message, HttpStatus.NO_CONTENT);
-			message = "Holiday with id " + calender.getHolidayId() + "does not exist";
+			message = "Holiday with id " + calendar.getHolidayId() + "does not exist";
 		}
 		return responseEntity;
 	}
@@ -147,9 +135,16 @@ public class CalendarController {
 		return responseEntity;
 	}
 
-	@GetMapping("/{slno}")
+	@GetMapping("/{holidayId}")
 	public List<Holiday> isCalenExists(@PathVariable("holidayId") int holidayId) {
 		return calendarService.getHolidays();
+	}
+
+	@PostMapping
+	public String saveCalender(@RequestBody Holiday calendar) {
+		System.out.println(calendar);
+
+		return calendarService.saveHoliday(calendar);
 	}
 
 }
