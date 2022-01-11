@@ -17,8 +17,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="HolidayTypes")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "holidays"})
-
-
 public class HolidayTypes {
 	
 	@Id
@@ -71,7 +69,15 @@ public class HolidayTypes {
 		return "TypesOfHoliday [holidayTypeId=" + holidayTypeId + ", holidayTypeName=" + holidayTypeName + "]";
 	}
 
-
-	
-
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof HolidayTypes )) return false;
+        return holidayTypeId != null && holidayTypeId.equals(((HolidayTypes) o).getHolidayTypeId());
+    }
+ 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

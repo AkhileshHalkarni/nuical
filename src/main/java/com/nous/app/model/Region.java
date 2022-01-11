@@ -16,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "Region")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "holidays"})
-
 public class Region {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,5 +63,17 @@ public class Region {
 	public String toString() {
 		return "Region [regionId=" + regionId + ", regionName=" + regionName + "]";
 	}
+	
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Region )) return false;
+        return regionId != null && regionId.equals(((Region) o).getRegionId());
+    }
+ 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 
 }

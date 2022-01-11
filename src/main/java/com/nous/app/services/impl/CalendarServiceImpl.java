@@ -89,5 +89,11 @@ public class CalendarServiceImpl implements CalendarService {
 		return "Deleted Successfully";
 	}
 
+	@Override
+	public List<Holiday> findByRegionId(Long regionId) {
+		
+		return calendarRepository.findByRegion(regionId);
+	}
+
 	
 }

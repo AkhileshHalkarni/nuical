@@ -18,7 +18,7 @@ public interface CalendarService {
 	public String updateHoliday(Holiday calendar);
 
 	public List<Holiday> findByName(String name);
-
+	
 	public String deleteHoliday(Long holidayId);
 
 	public boolean isHolidayExists(Long holidayId);
@@ -28,11 +28,7 @@ public interface CalendarService {
 	public List<Holiday> getGeneralHolidays();
 	
 	public List<Holiday> getOptionalHolidays();
-	
-	
 
-
-	
-
+	public List<Holiday> findByRegionId(Long regionId);
 
 }
