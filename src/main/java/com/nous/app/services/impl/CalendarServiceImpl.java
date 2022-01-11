@@ -95,5 +95,11 @@ public class CalendarServiceImpl implements CalendarService {
 		return calendarRepository.findByRegion(regionId);
 	}
 
+	@Override
+	public List<Holiday> findByTypeId(Long typeId) {
+		// TODO Auto-generated method stub
+		return calendarRepository.findByHolidayType(typeId);
+	}
+
 	
 }

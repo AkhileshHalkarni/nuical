@@ -103,6 +103,20 @@ public class CalendarController {
 		return responseEntity;
 	}
 
+	@GetMapping("/type/{typeId}")
+	public ResponseEntity<List<Holiday>> getByType(@PathVariable("typeId") Long typeId) {
+		ResponseEntity<List<Holiday>> responseEntity = null;
+		List<Holiday> calendar = new ArrayList<Holiday>();
+
+		calendar = calendarService.findByTypeId(typeId);
+
+		if (calendar.size() == 0) {
+			responseEntity = new ResponseEntity<List<Holiday>>(calendar, HttpStatus.NO_CONTENT); // 200
+		} else {
+			responseEntity = new ResponseEntity<List<Holiday>>(calendar, HttpStatus.OK); // 204
+		}
+		return responseEntity;
+	}
 	@GetMapping
 	public ResponseEntity<List<Holiday>> getRegions() {
 		ResponseEntity<List<Holiday>> responseEntity = null;

@@ -120,11 +120,11 @@
 		</dependency>
 
 		<!-- keycloak -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-spring-boot-starter</artifactId>
 		</dependency>
-
+ -->
 		<!-- Junit libraries -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -169,7 +169,7 @@
 
 	</dependencies>
 
-	<dependencyManagement>
+	<!-- <dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.keycloak.bom</groupId>
@@ -179,5 +179,5 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>
+	</dependencyManagement> -->
 </project>
