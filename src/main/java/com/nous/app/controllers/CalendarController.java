@@ -60,7 +60,8 @@ public class CalendarController {
 	@GetMapping("/Generalholidays")
 	public ResponseEntity<List<Holiday>> getGeneralHolidays() {
 		ResponseEntity<List<Holiday>> responseEntity = null;
-		List<Holiday> calendar = calendarService.getHolidays();
+		List<Holiday> calendar = calendarService.findByTypeId(1L);
+		
 		responseEntity = new ResponseEntity<List<Holiday>>(calendar, HttpStatus.OK);
 		return responseEntity;
 	}
@@ -68,7 +69,7 @@ public class CalendarController {
 	@GetMapping("/Optionalholidays")
 	public ResponseEntity<List<Holiday>> getOptionalHolidays() {
 		ResponseEntity<List<Holiday>> responseEntity = null;
-		List<Holiday> calendar = calendarService.getGeneralHolidays();
+		List<Holiday> calendar = calendarService.findByTypeId(2L);
 		responseEntity = new ResponseEntity<List<Holiday>>(calendar, HttpStatus.OK);
 		return responseEntity;
 	}
